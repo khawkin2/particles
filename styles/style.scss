@@ -1,4 +1,29 @@
+$primary-accent: #bcb88a;
+$secondary-accent: #6f7259;
+$dark-text: #101010;
+$light-text: #efefef;
+
 body {
     margin: 0;
     padding: 0;
+    font-family: 'Courier New', monospace;
+}
+
+button {
+    font-family: inherit;
+
+    background-color: $primary-accent;
+    border: 2px solid $secondary-accent;
+    color: $dark-text;
+    
+    padding: 5px 5px;
+    text-decoration: none;
+    word-wrap: break-word;
+
+    &:hover {
+        cursor: pointer;
+        color: $light-text;
+        background-color: $secondary-accent;
+        border: 2px solid $primary-accent;
+    }
 }

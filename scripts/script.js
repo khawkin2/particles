@@ -2,6 +2,8 @@ const canvas = document.createElement('canvas');
 const context = canvas.getContext('2d');
 document.body.appendChild(canvas); 
 
+var running=false;
+
 let particlesArray = [];
 anim();
 
@@ -114,13 +116,15 @@ function anim() {
 }
 
 //On Load 
-var start = document.getElementById('start-particles').onclick = function() {particleAsync('false')};
-var stop = document.getElementById('stop-particles').onclick = function() {particleAsync('true')};
+var start = document.getElementById('start-particles').onclick = function() {particleAsync()};
+var stop = document.getElementById('stop-particles').onclick = function() {stopParticles()};
+var state = document.getElementById('current-state');
 window.onload();
 
 function onload(){
   canvas.style.zIndex = -1;
   canvas.style.position = 'relative';
+  state.textContent = 'Not Running';
   setSize();
   anim();
 }
@@ -130,19 +134,28 @@ function delay(time) {
 }
 
 //async Function
-async function particleAsync(stop) {
-  if(stop === 'true'){
-    this.abort = true;
-    particlesArray = [];
-    context.clearRect(0, 0, canvas.width, canvas.height);
+async function particleAsync() {
+  if (running) {
+    return;
   }
-  while(stop !== 'true') {
-    if (self.abort) {
-      self.abort = false;
+
+  running = true;
+  state.textContent = 'Running';
+  console.log('Expected: Running || Actual: ' + state.textContent);
+  while(true){
+    if (!running) {
+      particlesArray = [];
+      context.clearRect(0, 0, canvas.width, canvas.height);
       return;
     }
-    generateParticles(2);
+  
+    generateParticles(10);
     await delay(100);
   }
 }
 
+function stopParticles() {
+  running = false;
+  state.textContent = 'Not Running';
+  console.log('Expected: Not Running || Actual: ' + state.textContent);
+}
