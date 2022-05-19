@@ -10,10 +10,10 @@ function generateParticles(amount) {
   for (let i = 0; i < amount; i++) {
     particlesArray[i+startingParticleCount] = new Particle(
       generatePerimeterPoint(innerWidth, innerHeight),
-      generateSize(),
+      generateRandomValue(15, 30),
       generateColor(),
-      generateAngle(),
-      generateSpeed()
+      generateRandomValue(0, Math.PI * 2),
+      generateRandomValue(2, 5)
     );
   }
 }
@@ -46,10 +46,6 @@ function generatePerimeterPoint(width, height){
   }    
 }
 
-function generateSize(){
-  return (Math.random() * 10) + 15;
-}
-
 function generateColor() {
   let hexSet = "0123456789ABCDEF";
   let finalHexString = "#";
@@ -59,12 +55,8 @@ function generateColor() {
   return finalHexString;
 }
 
-function generateAngle() {
-  return Math.random() * Math.PI * 2;
-}
-
-function generateSpeed() {
-  return (Math.random() * 3) + 1;
+function generateRandomValue(min, max){
+  return Math.random() * (max-min) + min;
 }
 
 function setSize() {
@@ -149,8 +141,7 @@ async function particleAsync(stop) {
       self.abort = false;
       return;
     }
-    generateParticles(1);
-    setSize();
+    generateParticles(2);
     await delay(100);
   }
 }
