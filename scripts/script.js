@@ -64,7 +64,7 @@ function generateAngle() {
 }
 
 function generateSpeed() {
-  return (Math.random() * 0.25) + 0.1;
+  return (Math.random() * 3) + 1;
 }
 
 function setSize() {
@@ -130,6 +130,7 @@ function onload(){
   canvas.style.zIndex = -1;
   canvas.style.position = 'relative';
   setSize();
+  anim();
 }
 
 function delay(time) {
@@ -150,7 +151,6 @@ async function particleAsync(stop) {
     }
     generateParticles(1);
     setSize();
-    anim();
     await delay(100);
   }
 }
